@@ -4,6 +4,7 @@ let register=document.getElementById("registertoggle")
 const logshow=document.getElementById("login")
 const registerform=document.getElementById("register")
 
+let flag=false
 
 logintog.addEventListener("click",(e)=>{
     logshow.style.display="block"
@@ -25,32 +26,77 @@ register.addEventListener("click",(e)=>{
 })
 
 
+
+
 registerform.addEventListener("submit",(e)=>{
-    let check=registerform.checkbox.checked
     e.preventDefault()
     let obj={
         user:registerform.username.value,
-        emailId:registerform.userregister.value,
-        password:registerform.rpassword.value,
-        doctorCheckbox:registerform.checkbox.checked
+        email:registerform.email.value,
+        password:registerform.pass.value,
+        doctor:registerform.doc.checked
     }
-console.log(JSON.stringify(obj))
-    if(!check){
-        fetch("https://mock4-rho.vercel.app/users",{
-            method: "POST",
-            headers:{
-                "Content-Type": "application/json",
-            },
-                 body: JSON.stringify(obj)
-        })
-        .then((res)=>{
-            console.log(res.json())
-        })
-        .then((res)=>{
-            console.log(res)
-        })
-        .catch((Err)=>console.log(Err))
+    console.log(obj)
+     
+    fetch("https://mock4dofinal.vercel.app/users",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body:JSON.stringify(obj)
+    })
+    .then(()=>{
+        document.getElementById("finalAns").innerText="Registration Successfull"
+        setTimeout(()=>{
+         window.location.href="index.html"
+        },2000)
+    })
 
-    }
 })
+
+
+{/* <input type="text" placeholder="email" id="userlogin" required>
+<br>
+<input type="password" placeholder="password" id="lpassword" required>
+<br>
+<input type="submit" value="Login"/> */}
+
+logshow.addEventListener("submit",(e)=>{
+  e.preventDefault()
+
+  let obj={
+    email:logshow.userlogin.value,
+    password:logshow.lpassword.value
+  }
+  console.log(obj)
+  fetch(`https://mock4dofinal.vercel.app/users?email=${obj.email}&password=${obj.password}`)
+  .then((res)=>res.json())
+  .then((res)=>{
+    console.log(res)
+    if(res.length){
+        if(res[0].doctor){
+            document.getElementById("finalAns").innerText=`Welcome ${res[0].name}`
+            console.log(res)
+            flag=true
+            localStorage.setItem("flag",JSON.stringify(flag))
+            alert("Logged In Successfully")
+            setTimeout(()=>{
+                window.location.href="./dashboard.html"
+               },2000)
+        }else{
+            document.getElementById("finalAns").innerText=`Welcome ${res[0].name}`
+            console.log(res)
+            alert("Logged In Successfully")
+            setTimeout(()=>{
+                window.location.href="./appointment.html"
+               },2000)
+        }
+    }else{
+        alert("Please Enter Valid Credentials")
+    }
+  }).catch((err)=>{
+    console.log(err)
+  })
+})
+
 
