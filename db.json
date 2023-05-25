@@ -38,6 +38,28 @@
 		"slots": 1,
 	  "fee": 100,
     "appointed_users":[]
-	}
+	},
+  { "id":3,
+  "name": "Mark Johnson",
+  "image": "https://example.com/doctor-image.jpg",
+  "specialization": "Pediatrician",
+  "experience": 5,
+  "location": "Chicago",
+  "date": "2023-04-06T09:30:00.000Z",
+  "slots": 1,
+  "fee": 100,
+  "appointed_users":[]
+},
+{ "id":4,
+"name": "Mark Johnson",
+"image": "https://example.com/doctor-image.jpg",
+"specialization": "Pediatrician",
+"experience": 5,
+"location": "Chicago",
+"date": "2023-04-06T09:30:00.000Z",
+"slots": 1,
+"fee": 100,
+"appointed_users":[]
+}
   ]
 }
